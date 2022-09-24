@@ -4,6 +4,20 @@ import '../dummy_data.dart';
 class MealDetailScreen extends StatelessWidget {
   static const routeName = "meal-detail";
 
+  Widget buildContainer(Widget child) {
+    return Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        margin: EdgeInsets.all(10),
+        padding: EdgeInsets.all(10),
+        height: 150,
+        width: 300,
+        child: child);
+  }
+
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
       margin: EdgeInsets.symmetric(
@@ -34,17 +48,8 @@ class MealDetailScreen extends StatelessWidget {
           ),
         ),
         buildSectionTitle(context, "Ingredients"),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          margin: EdgeInsets.all(10),
-          padding: EdgeInsets.all(10),
-          height: 150,
-          width: 300,
-          child: ListView.builder(
+        buildContainer(
+          ListView.builder(
             itemBuilder: (contex, index) => Card(
               color: Theme.of(context).colorScheme.secondary,
               child: Padding(
