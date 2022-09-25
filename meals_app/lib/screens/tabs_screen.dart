@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/screens/favorites_meal.dart';
+import '../widgets/main_drawer.dart';
+import './favorites_meal.dart';
 import './categories_screen.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -8,30 +9,44 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
+  final List<Map<String, Object>> _pages = [
+    {'page': CategoriesScreen(), 'title': 'Categories'},
+    {'page': FavoritesMealScreen(), 'title': 'Your Favorite'},
+  ];
+
+  int _selectedPageIndex = 0;
+
+  void _selectePage(int index) {
+    setState(() {
+      _selectedPageIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Meals"),
-          bottom: TabBar(tabs: <Widget>[
-            Tab(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_pages[_selectedPageIndex]['title'] as String),
+      ),
+      drawer: MainDraw(),
+      body: _pages[_selectedPageIndex]['page'] as Widget,
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _selectePage,
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        currentIndex: _selectedPageIndex,
+        type: BottomNavigationBarType.shifting,
+        items: [
+          BottomNavigationBarItem(
+              backgroundColor: Theme.of(context).colorScheme.primary,
               icon: Icon(Icons.category),
-              text: 'Categories',
-            ),
-            Tab(
+              label: 'Categories'),
+          BottomNavigationBarItem(
+              backgroundColor: Theme.of(context).colorScheme.primary,
               icon: Icon(Icons.star),
-              text: 'Favorites',
-            )
-          ]),
-        ),
-        body: TabBarView(
-          children: <Widget>[
-            CategoriesScreen(),
-            FavoritesMealScreen(),
-          ],
-        ),
+              label: 'Favorites'),
+        ],
       ),
     );
   }
