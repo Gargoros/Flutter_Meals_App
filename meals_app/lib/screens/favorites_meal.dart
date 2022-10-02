@@ -6,12 +6,12 @@ import '../widgets/meal_item.dart';
 class FavoritesMealScreen extends StatelessWidget {
   final List<Meal> favoritedMeals;
 
-  FavoritesMealScreen(this.favoritedMeals);
+  const FavoritesMealScreen(this.favoritedMeals, {super.key});
 
   @override
   Widget build(BuildContext context) {
     if (favoritedMeals.isEmpty) {
-      return Center(
+      return const Center(
         child: Text("You have no favorites yet - start to adding some!"),
       );
     } else {

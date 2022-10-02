@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import '../models/category.dart';
 import '../widgets/meal_item.dart';
-import '../dummy_data.dart';
 import '../models/meal.dart';
 
 class CategoryMealsScreen extends StatefulWidget {
   static const routeName = 'category-meals';
   final List<Meal> availableMeals;
 
-  CategoryMealsScreen(this.availableMeals);
+  const CategoryMealsScreen(this.availableMeals, {super.key});
 
   @override
   State<CategoryMealsScreen> createState() => _CategoryMealsScreenState();
@@ -38,12 +37,6 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
     }
 
     super.didChangeDependencies();
-  }
-
-  void _removeMeal(String mealId) {
-    setState(() {
-      displayedMeals.removeWhere((meal) => meal.id == mealId);
-    });
   }
 
   @override

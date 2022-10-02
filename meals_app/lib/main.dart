@@ -7,9 +7,11 @@ import '../screens/categories_screen.dart';
 import '../screens/category_meals_screen.dart';
 import '../models/meal.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -22,7 +24,7 @@ class _MyAppState extends State<MyApp> {
     'vegetarian': false,
   };
   List<Meal> _availableMeals = DUMMY_MEALS;
-  List<Meal> _favoritedMeals = [];
+  final List<Meal> _favoritedMeals = [];
 
   void _setFilters(Map<String, bool> filterData) {
     setState(() {
