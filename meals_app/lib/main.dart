@@ -22,6 +22,7 @@ class _MyAppState extends State<MyApp> {
     'vegetarian': false,
   };
   List<Meal> _availableMeals = DUMMY_MEALS;
+  List<Meal> _favoritedMeals = [];
 
   void _setFilters(Map<String, bool> filterData) {
     setState(() {
@@ -42,6 +43,25 @@ class _MyAppState extends State<MyApp> {
         return true;
       }).toList();
     });
+  }
+
+  void _toggleFavorite(String mealId) {
+    final existingIndex =
+        _favoritedMeals.indexWhere((meal) => meal.id == mealId);
+    if (existingIndex >= 0) {
+      setState(() {
+        _favoritedMeals.removeAt(existingIndex);
+      });
+    } else {
+      setState(() {
+        _favoritedMeals
+            .add(DUMMY_MEALS.firstWhere((meal) => meal.id == mealId));
+      });
+    }
+  }
+
+  bool _isMealFavorite(String id) {
+    return _favoritedMeals.any((meal) => meal.id == id);
   }
 
   // This widget is the root of your application.
@@ -67,33 +87,16 @@ class _MyAppState extends State<MyApp> {
       home: const CategoriesScreen(),
       initialRoute: '', // default is '/'
       routes: {
-        '': (ctx) => TabsScreen(),
+        '': (ctx) => TabsScreen(_favoritedMeals),
         CategoryMealsScreen.routeName: (ctx) =>
             CategoryMealsScreen(_availableMeals),
-        MealDetailScreen.routeName: (ctx) => const MealDetailScreen(),
+        MealDetailScreen.routeName: (ctx) =>
+            MealDetailScreen(_toggleFavorite, _isMealFavorite),
         FiltersScreen.routeName: (ctx) => FiltersScreen(_setFilters, _filters),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (ctx) => const CategoriesScreen());
       },
-      // onGenerateInitialRoutes: (setting) {
-      //   print(setting.arguments as String);
-      // },
-      // onUnknownRoute: ((settings) {
-      //   return MaterialPageRoute(builder: ((context) => CategoriesScreen(),);
-      // },
     );
   }
 }
-
-// @override
-// Widget build(BuildContext context) {
-//   return Scaffold(
-//     appBar: AppBar(
-//       title: const Text("DeliMeals"),
-//     ),
-//     body: const Center(
-//       child: Text("Navigation Time!"),
-//     ),
-//   );
-// }
