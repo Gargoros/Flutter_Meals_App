@@ -5,7 +5,7 @@ class FavoritesMealScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text("The Favorites Meal"),
     );
   }

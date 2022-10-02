@@ -11,8 +11,9 @@ class MealItem extends StatelessWidget {
   final Affordability affordability;
   final Function removeItem;
 
-  MealItem(
-      {required this.id,
+  const MealItem(
+      {super.key,
+      required this.id,
       required this.title,
       required this.imageUrl,
       required this.duration,
@@ -24,13 +25,10 @@ class MealItem extends StatelessWidget {
     switch (complexity) {
       case Complexity.Simple:
         return "Simple";
-        break;
       case Complexity.Challenging:
         return "Challenging";
-        break;
       case Complexity.Hard:
         return "Hard";
-        break;
       default:
         return "Unknown";
     }
@@ -40,13 +38,10 @@ class MealItem extends StatelessWidget {
     switch (affordability) {
       case Affordability.Affordable:
         return "Affordable";
-        break;
       case Affordability.Pricey:
         return "Pricey";
-        break;
       case Affordability.Luxurious:
         return "Expensive";
-        break;
       default:
         return "Unknown";
     }
@@ -71,12 +66,12 @@ class MealItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         elevation: 4,
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Column(children: <Widget>[
           Stack(
             children: <Widget>[
               ClipRRect(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15)),
                 child: Image.network(
@@ -91,12 +86,13 @@ class MealItem extends StatelessWidget {
                 right: 10,
                 left: 10,
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                   width: 380,
                   color: Colors.black54,
                   child: Text(
                     title,
-                    style: TextStyle(fontSize: 26, color: Colors.white),
+                    style: const TextStyle(fontSize: 26, color: Colors.white),
                     softWrap: true,
                     overflow: TextOverflow.fade,
                   ),
@@ -105,14 +101,14 @@ class MealItem extends StatelessWidget {
             ],
           ),
           Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Row(
                     children: [
-                      Icon(Icons.schedule),
-                      SizedBox(
+                      const Icon(Icons.schedule),
+                      const SizedBox(
                         width: 6,
                       ),
                       Text("$duration min")
@@ -120,8 +116,8 @@ class MealItem extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Icon(Icons.work),
-                      SizedBox(
+                      const Icon(Icons.work),
+                      const SizedBox(
                         width: 6,
                       ),
                       Text(complexityText)
@@ -129,8 +125,8 @@ class MealItem extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Icon(Icons.money),
-                      SizedBox(
+                      const Icon(Icons.money),
+                      const SizedBox(
                         width: 6,
                       ),
                       Text(affordabilityText)

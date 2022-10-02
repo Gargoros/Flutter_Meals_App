@@ -7,6 +7,8 @@ import '../models/meal.dart';
 class CategoryMealsScreen extends StatefulWidget {
   static const routeName = 'category-meals';
 
+  const CategoryMealsScreen({super.key});
+
   @override
   State<CategoryMealsScreen> createState() => _CategoryMealsScreenState();
 }
@@ -47,7 +49,7 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(categoryTitle as String),
+        title: Text(categoryTitle),
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../screens/categories_screen.dart';
 import '../screens/filters_screen.dart';
 
 class MainDraw extends StatelessWidget {
+  const MainDraw({super.key});
+
   Widget buildListTile(String title, IconData icon, VoidCallback? tapHandler) {
     return ListTile(
       leading: Icon(
@@ -11,7 +12,7 @@ class MainDraw extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
             fontFamily: 'RobotoCondensed',
             fontSize: 24,
             fontWeight: FontWeight.bold),
@@ -27,7 +28,7 @@ class MainDraw extends StatelessWidget {
       Container(
         height: 120,
         width: double.infinity,
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         alignment: Alignment.centerLeft,
         color: Theme.of(context).colorScheme.secondary,
         child: Text(
@@ -38,7 +39,7 @@ class MainDraw extends StatelessWidget {
               fontWeight: FontWeight.w900),
         ),
       ),
-      SizedBox(
+      const SizedBox(
         height: 20,
       ),
       buildListTile("Meals", Icons.restaurant, () {
