@@ -86,7 +86,7 @@ class _MyAppState extends State<MyApp> {
                   fontSize: 20,
                   fontFamily: "RobotoCondensed",
                   fontWeight: FontWeight.bold))),
-      home: const CategoriesScreen(),
+      //home: const CategoriesScreen(),
       initialRoute: '', // default is '/'
       routes: {
         '': (ctx) => TabsScreen(_favoritedMeals),
