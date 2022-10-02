@@ -1,16 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/dummy_data.dart';
 import '../screens/filters_screen.dart';
 import '../screens/tabs_screen.dart';
 import '../screens/meal_detail_screen.dart';
 import '../screens/categories_screen.dart';
 import '../screens/category_meals_screen.dart';
+import '../models/meal.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class _MyAppState extends State<MyApp> {
+  Map<String, bool> _filters = {
+    'gluten': false,
+    'lactose': false,
+    'vegan': false,
+    'vegetarian': false,
+  };
+  List<Meal> _availableMeals = DUMMY_MEALS;
+
+  void _setFilters(Map<String, bool> filterData) {
+    setState(() {
+      _filters = filterData;
+      _availableMeals = DUMMY_MEALS.where((meal) {
+        if (_filters["gluten"]! && !meal.isGlutenFree) {
+          return false;
+        }
+        if (_filters["lactose"]! && !meal.isLactoseFree) {
+          return false;
+        }
+        if (_filters["vegan"]! && !meal.isVegetarian) {
+          return false;
+        }
+        if (_filters["vegetarian"]! && !meal.isVegan) {
+          return false;
+        }
+        return true;
+      }).toList();
+    });
+  }
 
   // This widget is the root of your application.
   @override
@@ -35,10 +67,11 @@ class MyApp extends StatelessWidget {
       home: const CategoriesScreen(),
       initialRoute: '', // default is '/'
       routes: {
-        '': (ctx) => const TabsScreen(),
-        CategoryMealsScreen.routeName: (ctx) => const CategoryMealsScreen(),
+        '': (ctx) => TabsScreen(),
+        CategoryMealsScreen.routeName: (ctx) =>
+            CategoryMealsScreen(_availableMeals),
         MealDetailScreen.routeName: (ctx) => const MealDetailScreen(),
-        FiltersScreen.routeName: (ctx) => const FiltersScreen(),
+        FiltersScreen.routeName: (ctx) => FiltersScreen(_setFilters, _filters),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (ctx) => const CategoriesScreen());
@@ -53,14 +86,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: const Text("DeliMeals"),
-    ),
-    body: const Center(
-      child: Text("Navigation Time!"),
-    ),
-  );
-}
+// @override
+// Widget build(BuildContext context) {
+//   return Scaffold(
+//     appBar: AppBar(
+//       title: const Text("DeliMeals"),
+//     ),
+//     body: const Center(
+//       child: Text("Navigation Time!"),
+//     ),
+//   );
+// }
